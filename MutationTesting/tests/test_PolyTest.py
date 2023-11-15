@@ -1,9 +1,14 @@
 import os, sys
 from MutationTesting.mutationtesting.Polynomial import Polynomial  # Import the Polynomial class from your module
 
+
 def test_init():
     poly = Polynomial([3, 0, 2])
     assert poly.coefficients == [3, 0, 2]
+
+    poly1 = Polynomial([])
+    assert poly1.coefficients == []
+
 
 def test_str():
     poly = Polynomial([3, 0, 2])
@@ -14,6 +19,7 @@ def test_str():
 
     poly3 = Polynomial([0, 0, 0])
     assert str(poly3) == "0" or str(poly3) == ""
+
 
 def test_add():
     poly1 = Polynomial([3, 0, 2])
