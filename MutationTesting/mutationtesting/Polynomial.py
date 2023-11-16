@@ -4,19 +4,22 @@ class Polynomial:
         Initialize a polynomial with a list of coefficients. The coefficients list should be in descending order of
         the exponent, for example: [3, 0, 2] represents 3x^2 + 2.
         """
-        self.coefficients = coefficients
+        if coefficients is None:
+            self.coefficients = []
+        else:
+            self.coefficients = coefficients
 
     def __str__(self):
         """
         Return a string representation of the polynomial.
         """
 
-        if len(self.coefficients) == 0:  # pragma: no mutate
-            return "0"  # pragma: no mutate
+        if len(self.coefficients) == 0:
+            return "0"
 
         terms = []
         for i, coef in enumerate(self.coefficients):
-            if coef == 0:  # pragma: no mutate
+            if coef == 0:
                 continue
             term = str(coef)
             if i < len(self.coefficients) - 1:
@@ -31,9 +34,15 @@ class Polynomial:
         """
         Add two polynomials and return a new polynomial.
         """
-        max_length = max(len(self.coefficients), len(other.coefficients))
+        if other.coefficients is None:  # Check if other's coefficients is None
+            other_coefficients = []  # Treat None as an empty polynomial
+        else:
+            other_coefficients = other.coefficients
+
+
+        max_length = max(len(self.coefficients), len(other_coefficients))
         padded_self = [0] * (max_length - len(self.coefficients)) + self.coefficients
-        padded_other = [0] * (max_length - len(other.coefficients)) + other.coefficients
+        padded_other = [0] * (max_length - len(other_coefficients)) + other.coefficients
         result_coefficients = [a + b for a, b in zip(padded_self, padded_other)]
         return Polynomial(result_coefficients)
 
@@ -46,7 +55,6 @@ class Polynomial:
         result_coefficients = [a - b for a, b in zip(padded_self, padded_other)]
         # polynomial from this polynomial and return a new polynomial.
         return Polynomial(result_coefficients)
-
 
 
     def __mul__(self, other):
@@ -100,27 +108,29 @@ class Polynomial:
 
             raise ValueError("Bisection method did not converge within the maximum number of iterations.")
 
-# Example usage:
-poly1 = Polynomial([3, 0, 2])  # Represents 3x^2 + 2
-poly2 = Polynomial([1, -1])    # Represents x - 1
-
-print("poly1:", poly1)
-print("poly2:", poly2)
-
-poly_sum = poly1 + poly2
-print("Sum:", poly_sum)
-
-poly_diff = poly1 - poly2
-print("Difference:", poly_diff)
-
-poly_product = poly1 * poly2
-print("Product:", poly_product)
-
-x_value = 2
-result = poly1.evaluate(x_value)
-print(f"Evaluation of poly1 at x={x_value}: {result}")
-
-poly = Polynomial([1, 0, -2])  # Represents x^2 - 2
-print(f"Evaluation of poly at a,b: {poly.evaluate(0)}, {poly.evaluate(5)}")
-root = poly.find_root_bisection(0, 5)
-print(f"Root of {poly} within [0, 5]: {root}")
+poly = Polynomial([1, 0, 3])  # Coefficients: [1, 0, 3]
+result = poly.get_derivative_coefficients()
+# # Example usage:
+# poly1 = Polynomial([3, 0, 2])  # Represents 3x^2 + 2
+# poly2 = Polynomial([1, -1])    # Represents x - 1
+#
+# print("poly1:", poly1)
+# print("poly2:", poly2)
+#
+# poly_sum = poly1 + poly2
+# print("Sum:", poly_sum)
+#
+# poly_diff = poly1 - poly2
+# print("Difference:", poly_diff)
+#
+# poly_product = poly1 * poly2
+# print("Product:", poly_product)
+#
+# x_value = 2
+# result = poly1.evaluate(x_value)
+# print(f"Evaluation of poly1 at x={x_value}: {result}")
+#
+# poly = Polynomial([1, 0, -2])  # Represents x^2 - 2
+# print(f"Evaluation of poly at a,b: {poly.evaluate(0)}, {poly.evaluate(5)}")
+# root = poly.find_root_bisection(0, 5)
+# print(f"Root of {poly} within [0, 5]: {root}")
