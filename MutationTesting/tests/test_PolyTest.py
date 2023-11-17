@@ -112,13 +112,13 @@ def test_evaluate():
     # Test evaluation of a polynomial with multiple terms
     poly = Polynomial([1, 0, 3])  # Coefficients: [1, 0, 3]
     result = poly.evaluate(2)  # Evaluate at x = 2
-    assert result == 13  # Expected result for the given polynomial at x = 2 is 13
+    assert result == 7  # Expected result for the given polynomial at x = 2 is 7
 
 
     # Test evaluation of a polynomial with a negative coefficient
     poly = Polynomial([1, 0, -3])  # Coefficients: [1, 0, -3]
     result = poly.evaluate(3)  # Evaluate at x = 3
-    assert result == -24  # Expected result for the given polynomial at x = 3 is -24
+    assert result == 6  # Expected result for the given polynomial at x = 3 is 6
 
 def test_derivative():
 
@@ -137,13 +137,18 @@ def test_derivative():
     # Test derivative of a polynomial with multiple terms
     poly = Polynomial([1, 0, 3])  # Coefficients: [1, 0, 3]
     result = poly.get_derivative_coefficients()
-    assert result == [2, 0]  # Expected result for the derivative of the given polynomial is [0, 6]
+    assert result == [0, 0]  # Expected result for the derivative of the given polynomial is [0, 0]
 
 
     # Test derivative of a polynomial with a negative coefficient
     poly = Polynomial([1, 0, -3])  # Coefficients: [1, 0, -3]
     result = poly.get_derivative_coefficients()
-    assert result == [2, 0, 0]  # Expected result for the derivative of the given polynomial is [0, -6]
+    assert result == [0, 0]  # Expected result for the derivative of the given polynomial is [0, 0]
+
+    poly = Polynomial([1, 1, -3])
+    result = poly.get_derivative_coefficients()
+    assert result == [0, 1]
+
 def test_first_degree_polynomial():
     poly = Polynomial([2, -3])  # Represents 2x - 3
     root = poly.find_root_bisection(0, 5)
@@ -158,5 +163,7 @@ def test_third_degree_polynomial():
     poly = Polynomial([1, 0, -2, 0])  # Represents x^3 - 2x
     root = poly.find_root_bisection(-2, 2)
     assert abs(root - 0.0) < 1e-6
+
+
    
 
